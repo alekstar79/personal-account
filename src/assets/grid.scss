@@ -1,0 +1,84 @@
+$grid_color: #00f;
+$grid_margin: percentage(60 / 1840);
+$grid_gutter: percentage(30 / (1840 - 60 * 2));
+$grid_width: percentage(115.833333333 / (1840 - 60 * 2));
+
+@mixin mq($from, $to: false) {
+  @if $to {
+    @media (min-width: #{$from}px) and (max-width: #{$to}px) {
+      @content;
+    }
+  } @else {
+    @media (max-width: #{$from}px) {
+      @content;
+    }
+  }
+}
+
+main.container {
+  position: relative;
+  min-height: fit-content;
+  padding: 0; // 50px 0;
+
+  &.grid::after {
+    content: '';
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    bottom: 0;
+    left: $grid_margin;
+    right: $grid_margin;
+    opacity: 0.1;
+    background: repeating-linear-gradient(90deg,
+      $grid_color 0,
+      $grid_color $grid_width,
+      transparent $grid_width,
+      transparent $grid_width + $grid_gutter);
+    pointer-events: none;
+  }
+}
+
+.row {
+  display: flex;
+  gap: $grid_gutter;
+
+  margin: 0 $grid_margin;
+
+  .cell {
+    width: 100%;
+
+    &__11 {
+      width: $grid_width * 11 + $grid_gutter * 10;
+    }
+    &__10 {
+      width: $grid_width * 10 + $grid_gutter * 9;
+    }
+    &__9 {
+      width: $grid_width * 9 + $grid_gutter * 8;
+    }
+    &__8 {
+      width: $grid_width * 8 + $grid_gutter * 7;
+    }
+    &__7 {
+      width: $grid_width * 7 + $grid_gutter * 6;
+    }
+    &__6 {
+      width: $grid_width * 6 + $grid_gutter * 5;
+    }
+    &__5 {
+      width: $grid_width * 5 + $grid_gutter * 4;
+    }
+    &__4 {
+      width: $grid_width * 4 + $grid_gutter * 3;
+    }
+    &__3 {
+      width: $grid_width * 3 + $grid_gutter * 2;
+    }
+    &__2 {
+      width: $grid_width * 2 + $grid_gutter * 1;
+    }
+    &__1 {
+      width: $grid_width;
+    }
+  }
+}
